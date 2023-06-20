@@ -1,0 +1,39 @@
+version: '3'
+services:
+
+  todo-postgres:
+    image: "postgres:9.6-alpine"
+    container_name: todo-postgres
+    volumes:
+      - todo-data:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_DB=todo
+      - POSTGRES_USER=todo
+      - POSTGRES_PASSWORD=todo
+
+  todo-app:
+    build: ./todo-app
+    container_name: todo-app
+    environment:
+      - DB_SERVER=todo-postgres
+      - POSTGRES_DB=todo
+      - POSTGRES_USER=todo
+      - POSTGRES_PASSWORD=todo
+    ports:
+      - 8080:8080
+    links:
+      - todo-postgres
+
+  todo-ui:
+    build: ./todo-ui
+    container_name: todo-ui
+    ports:
+      - 4200:80
+    links:
+      - todo-app
+
+
+volumes:
+  todo-data:

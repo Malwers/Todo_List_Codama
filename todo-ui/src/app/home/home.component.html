@@ -1,0 +1,18 @@
+<div class="page-container">
+  <div class="page-title">
+    <h1>Todos</h1>
+  </div>
+  <div>
+    <button mat-raised-button (click)="openDialogForNewTodo()">+ Todo hinzufügen</button>
+  </div>
+
+  <div class="main-card">
+    <mat-nav-list>
+      <a mat-list-item *ngFor="let todo of todoList" routerLink="/todos/{{todo.id}}">
+        <p class="todo-title">{{todo.title}}</p>
+        <button mat-raised-button class="buttonright" (click)="deleteTodo(todo.id)">Todo entfernen</button>
+      </a>
+    </mat-nav-list>
+  </div>
+</div>
+
